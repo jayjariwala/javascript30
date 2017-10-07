@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Press Peace ☮ </title>
-
-
-	
+	<title>Type Peace ☮ </title>
+	<script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
-
-	<h1 class="hello"> Hello </h1>
-
-
+	<h1 class="hello" style="text-align: center; color:skyblue">✌️ Peace 🕊 </h1>
 	<script type="text/javascript">
-
-		const keys = [];
-		const secret = "peace"
-		
-		window.addEventListener('keyup', (e)=> {
-			keys.push(e.key);
-				
+		const keypressed = [];
+		const secret = 'peace';
+		const body = document.querySelector('body');
+		body.addEventListener('keyup', (e)=>{
+		keypressed.push(e.key);
+		keypressed.splice(- secret - 1 , keypressed.length - secret.length);
+		if(keypressed.join("") === secret)
+		{
+			cornify_add();
+		}
 		})
 
-		
-		
 	</script>
 </body>
 </html>
