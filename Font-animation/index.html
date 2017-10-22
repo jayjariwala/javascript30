@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello Friend!</title>
+	<style type="text/css">
+		@font-face {
+	    font-family: robot;
+	    src: url(mrrobot.ttf);
+		}
+
+		.text {
+			font-family:robot;
+			width:100%;
+			text-align: center;
+			color:maroon;
+			position: absolute;
+			top:50%;
+			text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+			transform: translateY(-50%);
+		}
+
+		span
+		{
+			box-sizing: border-box;
+			display: inline-block;
+			font-size: 6.25rem;
+		}
+
+		span:hover {
+			line-height: 24px;
+			/*font-size: 8.3rem;*/
+			transform: rotate(20deg) scale(1.5);
+			transition: transform 0.3s ease;
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<div class="text">Mr Robot</div>
+	<script type="text/javascript">
+		const text = document.querySelector('.text').textContent;
+		const filteredText = [...text].map((each)=>{
+			if( each === " ")
+			{
+				return `<span>&nbsp</span>`	
+			}
+			else
+			{
+				return `<span> ${each} </span>`	
+			}
+			
+		}).join("")
+		
+		const banner = document.querySelector('.text');
+		banner.innerHTML = filteredText;
+
+		const words = document.querySelectorAll('span');
+		
+		
+	</script>
+</body>
+</html>
