@@ -206,13 +206,23 @@
   const background = document.querySelector('.dropdownBackground');
   const nav = document.querySelector('.top');
 
+  function adjustDropdown(cordinates)
+  {
+    background.style.height = cordinates[0].height + 'px';
+    background.style.width = cordinates[0].width + 'px';
+    background.style.left = cordinates[0].x + 'px';
+    background.style.top = cordinates[0].y + 'px';
+
+  }
+  
   function handleEnter () {
     // body... 
       this.classList.add('trigger-enter');
       background.classList.add('open');
-      console.log(this.getClientRects());
-       background.style.height = this.getClientRects()[0].x + 'px';
-       background.style.width = this.getClientRects()[0].y + 'px';
+      const cordinates = this.querySelector('.dropdown').getClientRects();
+      console.log(cordinates);
+      adjustDropdown(cordinates);
+       
       setTimeout(()=>{
         this.classList.add('trigger-enter-active');
       } , 150)
@@ -225,10 +235,12 @@
 
   triggers.forEach((trigger)=> {
     trigger.addEventListener('mouseenter', handleEnter);
-    trigger.addEventListener('mouseleave', handleLeave);
+    trigger.addEventListener('mouseenter', handleEnter);
+
   })
 
 </script>
+
 
 </body>
 </html>
