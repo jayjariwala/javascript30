@@ -113,16 +113,6 @@
     display:flex;
     justify-content: center;
   }
-
-  .trigger-enter .dropdown
-  {
-    display: block;
-  }
-
-  .trigger-enter-active .dropdown
-  {
-    opacity: 1;
-  }
   .dropdown {
     opacity: 0;
     position: absolute;
@@ -155,7 +145,7 @@
     opacity:0;
   }
   .dropdownBackground.open {
-    opacity: 1 ;
+    opacity: 1;
   }
   .arrow {
     position: absolute;
@@ -177,7 +167,7 @@
     margin-right:20px;
   }
   .courses {
-    min-width:300px;  
+    min-width:300px;
   }
   .courses li {
     padding: 10px 0;
@@ -202,45 +192,56 @@
 </style>
 
 <script>
+
   const triggers = document.querySelectorAll('.cool > li');
   const background = document.querySelector('.dropdownBackground');
   const nav = document.querySelector('.top');
 
-  function adjustDropdown(cordinates)
+
+  function handleEnter()
   {
-    background.style.height = cordinates[0].height + 'px';
-    background.style.width = cordinates[0].width + 'px';
-    background.style.left = cordinates[0].x + 'px';
-    background.style.top = cordinates[0].y + 'px';
+    this.classList.add('trigger-enter');
+
+    //fading effect
+    setTimeout(() => {
+      if(this.classList.contains('trigger-enter'))
+      {
+      this.classList.add('trigger-enter-active');  
+      }
+
+    }, 150);
+    background.classList.add('open');
+
+    const dropdown = this.querySelector('.dropdown');
+    
+    const dropdownCoords = dropdown.getBoundingClientRect();
+    const navCoords = nav.getBoundingClientRect();
+      
+    const coords = {
+      height : dropdownCoords.height,
+      width : dropdownCoords.width,
+      top : dropdownCoords.top - navCoords.top,
+      left : dropdownCoords.left - navCoords.left
+    };
+
+    background.style.height = coords.height + 'px';
+    background.style.width  = coords.width + 'px';
+    background.style.setProperty('transform', `translate(${coords.left}px,${coords.top}px)`);
+    
 
   }
-  
-  function handleEnter () {
-    // body... 
-      this.classList.add('trigger-enter');
-      background.classList.add('open');
-      const cordinates = this.querySelector('.dropdown').getClientRects();
-      console.log(cordinates);
-      adjustDropdown(cordinates);
-       
-      setTimeout(()=>{
-        this.classList.add('trigger-enter-active');
-      } , 150)
-    }
 
-  function handleLeave(){
-    this.classList.remove('trigger-enter');
-   
+  function handleLeave()
+  {
+    this.classList.remove('trigger-enter', 'trigger-enter-active');
+    background.classList.remove('open');
   }
 
-  triggers.forEach((trigger)=> {
-    trigger.addEventListener('mouseenter', handleEnter);
-    trigger.addEventListener('mouseenter', handleEnter);
-
-  })
+ 
+ triggers.forEach((trigger) => { trigger.addEventListener('mouseenter', handleEnter)});
+ triggers.forEach((trigger) => { trigger.addEventListener('mouseleave', handleLeave)});
 
 </script>
-
 
 </body>
 </html>
