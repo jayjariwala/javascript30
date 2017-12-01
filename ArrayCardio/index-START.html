@@ -31,38 +31,45 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-
-    var persons = inventors.filter( inventor => {
-      return inventor.year < 1600 && inventor.year > 1500;
-    })
-    console.log(persons);
+    const oldies = inventors.filter((innovetor) => innovetor.year > 1499 && innovetor.year < 1600 );
+    
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
-    var names= inventors.map(inventor => {
-      return `${inventor.first}, ${inventor.last}`;
-    })
-    console.log(names);
+    const innovetorNames = inventors.map((inventor) => `${inventor.first} ${inventor.last}`); 
+   
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    var bdates=inventors.sort(function (a,b){
-    	return a.year > b.year ? 1 : -1;
-    })
-
-    console.table(bdates);
+    const sortedbyBirthday =  inventors.sort((a,b) =>  (b.year - a.year));
+    
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const diff = inventors.map( (inventor) => inventor.passed - inventor.year);
+    const yearsLived = diff.reduce((total , current) => total + current);
 
     // 5. Sort the inventors by years lived
+    const lifetime = inventors.sort((a,b) => (a.passed - a.year) - (b.passed - b.year))
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    const cities = [];
+    const words = document.querySelectorAll('.mw-category-group ul li').forEach((each) => {
+      cities.push(each.textContent);
+    });
+    cities.filter((city) => city.includes('de'));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const fullname  = people.map((name) => {
+      const firstname = name.split(",")[0]
+      const lastname = name.split(",")[1]
+      return { "firstname" : ${firstname}, "lastname" : ${lastname} }`
+    })
+
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
