@@ -63,17 +63,50 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-    const fullname  = people.map((name) => {
-      const firstname = name.split(",")[0]
-      const lastname = name.split(",")[1]
-      return { "firstname" : ${firstname}, "lastname" : ${lastname} }`
+    
+    const names = people.map((people) => {
+      return {
+        firstname:people.split(",")[0],
+        lastname : people.split(",")[1].trim()
+      }
     })
 
 
 
+    const sorted = names.sort((a,b) => {
+          var nameA = a.lastname.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.lastname.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+  // names must be equal
+  return 0;
+    }).map((people ) => {
+      return people.firstname + ", " + people.lastname 
+    })
+
+   
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+
+    const instance = data.reduce((obj,item) => {
+      if(!obj[item])
+      {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+
+    },{})
+
+    console.log(instance);
 
   </script>
 </body>
