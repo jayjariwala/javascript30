@@ -108,32 +108,61 @@ body {
   </div>
 
  <script type="text/javascript">
-  
-  let countdown;
+  let timeLeft;
+  const timerButtons = document.querySelectorAll('.timer__button');
+  const timerDisplay = document.querySelector('.display__time-left');
+  const endDisplay = document.querySelector('.display__end-time');
 
-
-  function timer(seconds)
-  {
+  timerButtons.forEach( function(buttons) {
+    // statements
+    buttons.addEventListener('click', function(){
+      const time = this.getAttribute('data-time');
+      timer(time);
+    })
+  });
+  const displayTime = document.querySelector('.display__time-left');
+ function timer (seconds) {
+    // body... 
+    clearInterval(timeLeft);
     const now = Date.now();
     const then = now + (seconds * 1000);
-    displayTime(seconds);
-    countdown = setInterval(function(){
-      const secondleft =  Math.round((then - Date.now()) / 1000) ;
-      if( secondleft < 0 )
+    displayTimeLeft(seconds);
+    displayEndTime(then);
+    timeLeft = setInterval(function(){
+      let timeLeft = Math.round((then - Date.now()) / 1000);
+      if(timeLeft < 0)
       {
-        clearInterval(countdown);
-        return;
+       clearInterval(timeLeft);
+       return;
       }
-      displayTime(secondleft);
+      displayTimeLeft(timeLeft);
     }, 1000);
+  } 
 
-  }
-
-  function displayTime(seconds)
+  function displayTimeLeft(seconds)
   {
-    const mins = Math.floor(seconds / 60);
-    const remainderSeconds = seconds % 60;
+    let minutes = Math.floor(seconds / 60);
+    let secs = seconds % 60;
+    let display = `${minutes}:${secs < 10 ? "0" + secs : secs }`
+    document.title = display;
+    timerDisplay.innerHTML = display ;
   }
+
+function displayEndTime(timestamp)
+{
+  const end = new Date(timestamp);
+  const hour = end.getHours();
+  const minutes =  end.getMinutes();
+  endDisplay.innerHTML = `Be Back At ${ hour > 12 ? hour - 12 : hour }:${minutes < 10 ? '0'+ minutes : minutes}`;
+}
+
+document.customForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  const mins = this.minutes.value;
+  timer(mins * 60);
+  this.reset();
+})
+
  </script>
 </body>
 </html>
