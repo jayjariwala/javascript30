@@ -74,6 +74,7 @@
   {
     timeup = false;
     score = 0;
+    scoreBoard.innerHTML = 0;
     wake();
     setTimeout(()=>{
       timeup = true;
@@ -85,11 +86,11 @@
   {
     if(!e.isTrusted) return;
     score++;
-    console.log(this);
+    scoreBoard.innerHTML = score;
     this.parentElement.classList.remove("up");
   }
 
- moles.forEach((mole)=> mole.addEventListener('click', scoreCount))
+ moles.forEach((mole) => mole.addEventListener('click', scoreCount))
 
 
 
